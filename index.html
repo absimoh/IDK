@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmos | Deep Space Observatory</title>
+    <title>Cosmos | Space Observatory</title>
     
-    <!-- Fonts & Icons -->
+    <!-- ربط الخطوط والأيقونات -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <!-- ربط ملف الـ CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Background Canvas -->
+    <!-- خلفية النجوم -->
     <canvas id="star-canvas"></canvas>
 
-    <!-- Preloader -->
+    <!-- شاشة التحميل -->
     <div id="preloader">
         <div class="loader"></div>
-        <p style="margin-top: 15px; letter-spacing: 3px; color: white;">INITIALIZING SYSTEM...</p>
+        <p style="margin-top: 15px; letter-spacing: 3px; color: white;">INITIALIZING DATA FEED...</p>
     </div>
 
-    <!-- Navigation -->
+    <!-- القائمة العلوية -->
     <nav id="navbar">
         <div class="container nav-container">
             <div class="logo">
@@ -34,126 +34,80 @@
                 <li><a class="nav-link active" onclick="app.showSection('home')">Home</a></li>
                 <li><a class="nav-link" onclick="app.showSection('solar')">Solar System</a></li>
                 <li><a class="nav-link" onclick="app.showSection('deep-space')">Galaxies</a></li>
-                <li><a class="nav-link" onclick="app.showSection('education')">Education</a></li>
                 <li><a class="nav-link" onclick="app.showSection('contact')">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
-        
-        <!-- HOME SECTION -->
+        <!-- القسم الرئيسي -->
         <section id="home" class="section active">
             <div class="hero">
                 <div class="hero-content">
                     <h1>EXPLORE THE UNIVERSE</h1>
-                    <p>Interactive journey through planets, stars, and deep space phenomena. Discover the cosmos in a new dimension.</p>
-                    <button class="hero-btn" onclick="app.showSection('solar')">EXPLORE SOLAR SYSTEM <i class="fa-solid fa-arrow-right"></i></button>
+                    <p>Interactive journey through planets, stars, and deep space phenomena.</p>
+                    <button class="hero-btn" onclick="app.showSection('solar')">EXPLORE <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- SOLAR SYSTEM SECTION (WITH SEARCH) -->
+        <!-- قسم النظام الشمسي (يحتوي على الخريطة والبحث) -->
         <section id="solar" class="section">
             <div class="container">
-                <div style="text-align: center; margin-bottom: 3rem;">
+                <div style="text-align: center; margin-bottom: 1rem;">
                     <h2>SOLAR SYSTEM MAP</h2>
-                    <p>Search and select a planet to view detailed scientific data.</p>
                     
+                    <!-- Custom Map Area -->
+                    <div class="map-container">
+                        <i class="fa-solid fa-earth-americas fa-spin-pulse map-icon"></i>
+                        <h3>SYSTEM ONLINE</h3>
+                        <p>Visual Data Loaded. Select a planet below to analyze.</p>
+                    </div>
+
                     <!-- Search Bar -->
                     <div class="search-container">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="searchInput" placeholder="Search for a planet (e.g., Mars)...">
+                        <i class="fa-solid fa-magnifying-glass" style="color:var(--text-dim)"></i>
+                        <input type="text" id="searchInput" placeholder="Search planet data...">
                     </div>
-                </div>
-
-                <!-- Interactive Map Embed -->
-                <div class="iframe-wrapper">
-                    <iframe src="https://eyes.nasa.gov/apps/solar-system/#/home" title="NASA Eyes"></iframe>
                 </div>
 
                 <!-- Planet Cards Grid -->
                 <div class="grid-3" id="planetGrid">
-                    <!-- Cards will be injected by JavaScript -->
+                    <!-- JS will inject cards here -->
                 </div>
             </div>
         </section>
 
-        <!-- DEEP SPACE SECTION -->
+        <!-- قسم المجرات -->
         <section id="deep-space" class="section">
             <div class="container">
-                <h2>STARS & GALAXIES</h2>
+                <h2>DEEP SPACE</h2>
                 <div class="grid-3">
-                    <div class="glass-panel topic-card">
-                        <img src="https://picsum.photos/seed/galaxy1/400/250.jpg" class="topic-img" alt="Galaxy">
-                        <div class="topic-info">
-                            <h3>Spiral Galaxies</h3>
-                            <p>Flat, rotating disk containing stars, gas and dust, and a central concentration of stars known as the bulge.</p>
-                        </div>
+                    <div class="glass-panel">
+                        <h3><i class="fa-solid fa-sun" style="color: gold;"></i> Stars</h3>
+                        <p>Huge balls of hot gas that undergo nuclear fusion.</p>
                     </div>
-                    <div class="glass-panel topic-card">
-                        <img src="https://picsum.photos/seed/nebula1/400/250.jpg" class="topic-img" alt="Nebula">
-                        <div class="topic-info">
-                            <h3>Nebulae</h3>
-                            <p>Giant clouds of dust and gas in space. Sometimes they are the nurseries where new stars are born.</p>
-                        </div>
+                    <div class="glass-panel">
+                        <h3><i class="fa-solid fa-circle-nodes" style="color: purple;"></i> Galaxies</h3>
+                        <p>Systems of stars, gas, dust, and dark matter bound by gravity.</p>
                     </div>
-                    <div class="glass-panel topic-card">
-                        <img src="https://picsum.photos/seed/blackhole1/400/250.jpg" class="topic-img" alt="Black Hole">
-                        <div class="topic-info">
-                            <h3>Black Holes</h3>
-                            <p>A place in space where gravity pulls so much that nothing can get out, not even light.</p>
-                        </div>
+                    <div class="glass-panel">
+                        <h3><i class="fa-solid fa-cloud" style="color: cyan;"></i> Nebulae</h3>
+                        <p>Giant clouds of dust and gas in space.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- EDUCATION SECTION -->
-        <section id="education" class="section">
-            <div class="container">
-                <h2>KNOWLEDGE BASE</h2>
-                <div class="glass-panel" style="padding: 2rem;">
-                    <div class="faq-container">
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="app.toggleFaq(this)">
-                                Why is Pluto not a planet anymore? <span>+</span>
-                            </div>
-                            <div class="faq-answer">
-                                Pluto is now classified as a dwarf planet because it does not meet all three criteria to be a full planet (specifically clearing its orbit).
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="app.toggleFaq(this)">
-                                What is the Great Red Spot? <span>+</span>
-                            </div>
-                            <div class="faq-answer">
-                                It is a giant storm that has raged on Jupiter for at least 350 years. It is so large that Earth could fit inside it.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT SECTION -->
+        <!-- قسم التواصل -->
         <section id="contact" class="section">
-            <div class="container" style="max-width: 600px;">
-                <div class="glass-panel contact-form">
+             <div class="container" style="max-width: 600px;">
+                <div class="glass-panel">
                     <h2>CONTACT OBSERVATORY</h2>
                     <form onsubmit="app.handleContact(event)">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea rows="4" required></textarea>
-                        </div>
+                        <div class="form-group"><label>Name</label><input type="text" required></div>
+                        <div class="form-group"><label>Email</label><input type="email" required></div>
+                        <div class="form-group"><label>Message</label><textarea rows="4" required></textarea></div>
                         <button type="submit" class="hero-btn">SEND TRANSMISSION</button>
                     </form>
                 </div>
@@ -161,23 +115,20 @@
         </section>
     </main>
 
-    <!-- Modal -->
+    <!-- نافذة المعلومات (Modal) -->
     <div id="planetModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="modalTitle">Planet Name</h3>
                 <span class="close-modal" onclick="app.closeModal()">&times;</span>
             </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Content injected via JS -->
-            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="toast">Message Sent!</div>
 
-    <!-- ربط ملف الـ JavaScript في النهاية -->
+    <!-- ربط ملف الـ JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
