@@ -1,0 +1,126 @@
+/* --- 1. CORE VARIABLES --- */
+:root {
+    --bg-deep: #030508;
+    --bg-panel: rgba(20, 25, 40, 0.6);
+    --primary: #00f2ff;
+    --secondary: #7000ff;
+    --text-main: #ffffff;
+    --text-dim: #a0aab5;
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Exo 2', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+#star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+/* --- 2. TYPOGRAPHY & UTILS --- */
+h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 2px; }
+h1 { font-size: 3.5rem; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; color: transparent; }
+p { color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.glass-panel {
+    background: var(--bg-panel);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+/* --- 3. PRELOADER --- */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-deep); z-index: 9999;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    transition: opacity 0.5s ease;
+}
+.loader { width: 50px; height: 50px; border: 3px solid transparent; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* --- 4. NAVIGATION --- */
+nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.2rem 0; background: rgba(3, 5, 8, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 10px; font-family: var(--font-display); }
+.logo i { color: var(--primary); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-link { color: var(--text-dim); text-decoration: none; font-weight: 600; transition: 0.3s; cursor: pointer; }
+.nav-link:hover, .nav-link.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+
+/* --- 5. LAYOUT --- */
+section { min-height: 100vh; padding: 100px 0 50px; display: none; opacity: 0; transition: opacity 0.5s ease; }
+section.active { display: block; opacity: 1; }
+.hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+/* --- 6. BUTTONS & INPUTS --- */
+.hero-btn {
+    padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--primary);
+    color: var(--primary); font-family: var(--font-display); font-weight: 700;
+    text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 2rem;
+}
+.hero-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+
+/* Search Bar */
+.search-container {
+    position: relative; max-width: 400px; margin: 2rem auto;
+    background: rgba(255,255,255,0.05); border-radius: 30px; padding: 0 20px;
+    display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.1);
+}
+.search-container i { color: var(--text-dim); }
+.search-container input {
+    width: 100%; background: transparent; border: none; padding: 15px;
+    color: white; font-family: var(--font-body); font-size: 1rem; outline: none;
+}
+
+/* --- 7. PLANET CARDS --- */
+.planet-card {
+    padding: 2rem; text-align: center; cursor: pointer;
+    background: rgba(255,255,255,0.02); border: 1px solid transparent;
+    border-radius: 16px; transition: 0.4s;
+}
+.planet-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-10px); border-color: var(--primary); }
+.planet-icon { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem; object-fit: cover; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+
+/* --- 8. MODAL --- */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; justify-content: center; align-items: center; }
+.modal.open { display: flex; animation: zoomIn 0.3s ease; }
+.modal-content { background: #0f1219; width: 90%; max-width: 600px; border-radius: 16px; border: 1px solid var(--primary); padding: 2rem; position: relative; }
+.modal-header { display: flex; justify-content: space-between; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+.close-modal { font-size: 2rem; cursor: pointer; color: var(--text-dim); }
+.close-modal:hover { color: var(--primary); }
+
+/* --- 9. FAQ & FORM --- */
+.faq-item { margin-bottom: 10px; background: rgba(255,255,255,0.03); border-radius: 8px; overflow: hidden; }
+.faq-question { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; font-weight: 600; color: white; }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.5rem; color: var(--text-dim); }
+.faq-item.open .faq-answer { padding-bottom: 1.5rem; }
+
+.form-group label { display: block; margin-bottom: 0.5rem; color: var(--primary); }
+.form-group input, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px; color: white; border-radius: 5px; font-family: var(--font-body);
+}
+
+/* Toast */
+.toast {
+    position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: black;
+    padding: 1rem 2rem; border-radius: 5px; transform: translateY(100px); transition: 0.3s;
+}
+.toast.show { transform: translateY(0); }
+
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links { display: none; } /* Simplified for demo */
+    h1 { font-size: 2rem; }
+    .search-container { width: 100%; }
+}

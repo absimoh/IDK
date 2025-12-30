@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmos | Deep Space Observatory</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ربط ملف الـ CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Canvas -->
+    <canvas id="star-canvas"></canvas>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+        <p style="margin-top: 15px; letter-spacing: 3px; color: white;">INITIALIZING SYSTEM...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-user-astronaut"></i> Cosmos Explorer
+            </div>
+            <ul class="nav-links">
+                <li><a class="nav-link active" onclick="app.showSection('home')">Home</a></li>
+                <li><a class="nav-link" onclick="app.showSection('solar')">Solar System</a></li>
+                <li><a class="nav-link" onclick="app.showSection('deep-space')">Galaxies</a></li>
+                <li><a class="nav-link" onclick="app.showSection('education')">Education</a></li>
+                <li><a class="nav-link" onclick="app.showSection('contact')">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        
+        <!-- HOME SECTION -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>EXPLORE THE UNIVERSE</h1>
+                    <p>Interactive journey through planets, stars, and deep space phenomena. Discover the cosmos in a new dimension.</p>
+                    <button class="hero-btn" onclick="app.showSection('solar')">EXPLORE SOLAR SYSTEM <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLAR SYSTEM SECTION (WITH SEARCH) -->
+        <section id="solar" class="section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h2>SOLAR SYSTEM MAP</h2>
+                    <p>Search and select a planet to view detailed scientific data.</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Search for a planet (e.g., Mars)...">
+                    </div>
+                </div>
+
+                <!-- Interactive Map Embed -->
+                <div class="iframe-wrapper">
+                    <iframe src="https://eyes.nasa.gov/apps/solar-system/#/home" title="NASA Eyes"></iframe>
+                </div>
+
+                <!-- Planet Cards Grid -->
+                <div class="grid-3" id="planetGrid">
+                    <!-- Cards will be injected by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- DEEP SPACE SECTION -->
+        <section id="deep-space" class="section">
+            <div class="container">
+                <h2>STARS & GALAXIES</h2>
+                <div class="grid-3">
+                    <div class="glass-panel topic-card">
+                        <img src="https://picsum.photos/seed/galaxy1/400/250.jpg" class="topic-img" alt="Galaxy">
+                        <div class="topic-info">
+                            <h3>Spiral Galaxies</h3>
+                            <p>Flat, rotating disk containing stars, gas and dust, and a central concentration of stars known as the bulge.</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel topic-card">
+                        <img src="https://picsum.photos/seed/nebula1/400/250.jpg" class="topic-img" alt="Nebula">
+                        <div class="topic-info">
+                            <h3>Nebulae</h3>
+                            <p>Giant clouds of dust and gas in space. Sometimes they are the nurseries where new stars are born.</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel topic-card">
+                        <img src="https://picsum.photos/seed/blackhole1/400/250.jpg" class="topic-img" alt="Black Hole">
+                        <div class="topic-info">
+                            <h3>Black Holes</h3>
+                            <p>A place in space where gravity pulls so much that nothing can get out, not even light.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION SECTION -->
+        <section id="education" class="section">
+            <div class="container">
+                <h2>KNOWLEDGE BASE</h2>
+                <div class="glass-panel" style="padding: 2rem;">
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="app.toggleFaq(this)">
+                                Why is Pluto not a planet anymore? <span>+</span>
+                            </div>
+                            <div class="faq-answer">
+                                Pluto is now classified as a dwarf planet because it does not meet all three criteria to be a full planet (specifically clearing its orbit).
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="app.toggleFaq(this)">
+                                What is the Great Red Spot? <span>+</span>
+                            </div>
+                            <div class="faq-answer">
+                                It is a giant storm that has raged on Jupiter for at least 350 years. It is so large that Earth could fit inside it.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section">
+            <div class="container" style="max-width: 600px;">
+                <div class="glass-panel contact-form">
+                    <h2>CONTACT OBSERVATORY</h2>
+                    <form onsubmit="app.handleContact(event)">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="hero-btn">SEND TRANSMISSION</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="planetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Planet Name</h3>
+                <span class="close-modal" onclick="app.closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Message Sent!</div>
+
+    <!-- ربط ملف الـ JavaScript في النهاية -->
+    <script src="script.js"></script>
+</body>
+</html>
