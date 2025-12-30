@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LUMINODE | Orbital Command</title>
 
-<!-- Fonts & Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,16 +14,15 @@
 
 <body>
 
-<!-- Background Stars -->
 <canvas id="star-canvas"></canvas>
 
-<!-- System Loader -->
+<!-- SYSTEM LOADER -->
 <div id="loader">
     <div class="loader-ring"></div>
     <p>SYSTEM BOOTING</p>
 </div>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav>
     <div class="nav-container">
         <div class="logo">
@@ -37,7 +35,7 @@
             <li onclick="app.navigate('solar')">ORBITAL MAP</li>
         </ul>
 
-        <div id="clock" class="clock">00:00:00</div>
+        <div id="clock" class="clock"></div>
     </div>
 </nav>
 
@@ -47,14 +45,13 @@
 <section id="home" class="section active">
     <div class="hero">
         <h1>ORBITAL<br><span>COMMAND</span></h1>
-        <p>Advanced real-time solar system visualization interface</p>
+        <p>Advanced real-time solar system visualization</p>
         <button class="btn" onclick="app.navigate('solar')">INITIATE MAP</button>
     </div>
 </section>
 
 <!-- SOLAR MAP -->
 <section id="solar" class="section map-mode">
-
     <div class="map-wrapper">
 
         <!-- HUD -->
@@ -66,7 +63,13 @@
             <div id="mapClock"></div>
         </div>
 
-        <!-- Map Loader -->
+        <!-- SEARCH -->
+        <div class="planet-search">
+            <input id="planetInput" type="text" placeholder="SEARCH PLANET...">
+            <button onclick="app.searchPlanet()">GO</button>
+        </div>
+
+        <!-- MAP LOADER -->
         <div id="mapLoader" class="map-loader">
             <div class="radar"></div>
             <p>SYNCING ORBITAL DATA</p>
@@ -79,12 +82,9 @@
             loading="lazy">
         </iframe>
 
-        <!-- Scanlines -->
         <div class="scanlines"></div>
 
-        <!-- Exit -->
         <button class="exit-map" onclick="app.navigate('home')">EXIT MAP</button>
-
     </div>
 </section>
 
