@@ -1,138 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMINODE | Orbital System</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Connect CSS -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMINODE | Orbital Command</title>
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Stars Canvas -->
-    <canvas id="star-canvas"></canvas>
+<!-- Background Stars -->
+<canvas id="star-canvas"></canvas>
 
-    <!-- Preloader (Reliable Version) -->
-    <div id="loader">
-        <div class="loader-ring"></div>
-        <div class="loader-text" id="loader-text">INITIALIZING SYSTEM...</div>
-        <button class="loader-btn" id="loader-btn" onclick="app.dismissLoader()">FORCE LOAD</button>
-    </div>
+<!-- System Loader -->
+<div id="loader">
+    <div class="loader-ring"></div>
+    <p>SYSTEM BOOTING</p>
+</div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo"><i class="fa-solid fa-cube"></i> LUMI<span>NODE</span></div>
-        <ul class="nav-links">
-            <li><a class="nav-link active" onclick="app.navTo('home')">DASHBOARD</a></li>
-            <li><a class="nav-link" onclick="app.navTo('solar')">ORBITAL MAP</a></li>
-            <li><a class="nav-link" onclick="app.navTo('data')">DATA ARCHIVE</a></li>
-            <li><a class="nav-link" onclick="app.navTo('contact')">COMM LINK</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <!-- Home -->
-        <section id="home" class="section active">
-            <div class="hero">
-                <div class="container">
-                    <h1>Orbital <br>Command</h1>
-                    <p style="margin: 0 auto;">Next-Generation Solar System Telemetry Interface. Real-time data analysis and visualization.</p>
-                    <div style="margin-top:3rem;">
-                        <button class="btn-tech" onclick="app.navTo('solar')">ENTER SYSTEM</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Solar Map -->
-        <section id="solar" class="section">
-            <div class="container">
-                <div style="text-align:center;">
-                    <h2>System Map</h2>
-                    <p>LIVE VISUALIZATION FEED</p>
-                </div>
-
-                <!-- High-Tech Map Container -->
-                <div class="map-container">
-                    <div class="map-border-anim"></div>
-                    <iframe src="https://eyes.nasa.gov/apps/solar-system/#/home" class="iframe-layer"></iframe>
-                    <div class="scan-overlay"></div>
-                    <div class="nasa-hider"></div>
-                </div>
-
-                <!-- Search -->
-                <div class="search-box">
-                    <input type="text" id="search" placeholder="SEARCH OBJECTS (e.g. Mars)...">
-                </div>
-
-                <!-- Grid -->
-                <div class="grid-3" id="planetGrid"></div>
-            </div>
-        </section>
-
-        <!-- Data Archive -->
-        <section id="data" class="section">
-            <div class="container">
-                <h2>Data Archive</h2>
-                <div class="grid-3">
-                    <div class="card">
-                        <i class="fa-solid fa-microchip" style="font-size:2rem; color:var(--primary); margin-bottom:1rem;"></i>
-                        <h3>Quantum Core</h3>
-                        <p>Processing deep space sensor data.</p>
-                    </div>
-                    <div class="card">
-                        <i class="fa-solid fa-wind" style="font-size:2rem; color:var(--secondary); margin-bottom:1rem;"></i>
-                        <h3>Solar Flares</h3>
-                        <p>Monitoring coronal mass ejection risks.</p>
-                    </div>
-                    <div class="card">
-                        <i class="fa-solid fa-satellite" style="font-size:2rem; color:var(--alert); margin-bottom:1rem;"></i>
-                        <h3>Satellites</h3>
-                        <p>Tracking orbital debris patterns.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" class="section">
-             <div class="container" style="max-width:600px;">
-                <div class="card" style="text-align:center; border-color:var(--primary);">
-                    <h2 style="justify-content:center;">COMMUNICATION</h2>
-                    <form onsubmit="event.preventDefault(); alert('TRANSMISSION SENT');">
-                        <input type="text" placeholder="OPERATOR ID" class="search-box" style="margin-bottom:1rem;">
-                        <textarea rows="4" placeholder="MESSAGE PACKET" class="search-box" style="margin-bottom:2rem;"></textarea>
-                        <button class="btn-tech" style="width:100%;">SEND UPLINK</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Modal -->
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="mName">OBJECT</h3>
-                <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:1.5rem;" onclick="app.closeModal()"></i>
-            </div>
-            <div class="modal-body">
-                <img id="mImg" src="" style="width:120px; height:120px; border-radius:50%; border:2px solid var(--primary); object-fit:cover;">
-                <div>
-                    <p id="mDesc" style="color:white;"></p>
-                    <p id="mTrivia" style="margin-top:10px; color:var(--primary); font-size:0.9rem;"></p>
-                </div>
-            </div>
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fa-solid fa-network-wired"></i>
+            LUMI<span>NODE</span>
         </div>
-    </div>
 
-    <!-- JS -->
-    <script src="script.js"></script>
+        <ul class="nav-links">
+            <li onclick="app.navigate('home')">DASHBOARD</li>
+            <li onclick="app.navigate('solar')">ORBITAL MAP</li>
+        </ul>
+
+        <div id="clock" class="clock">00:00:00</div>
+    </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="section active">
+    <div class="hero">
+        <h1>ORBITAL<br><span>COMMAND</span></h1>
+        <p>Advanced real-time solar system visualization interface</p>
+        <button class="btn" onclick="app.navigate('solar')">INITIATE MAP</button>
+    </div>
+</section>
+
+<!-- SOLAR MAP -->
+<section id="solar" class="section map-mode">
+
+    <div class="map-wrapper">
+
+        <!-- HUD -->
+        <div class="map-hud">
+            <div>
+                <strong>SOLAR SYSTEM</strong>
+                <small>LIVE ORBITAL FEED</small>
+            </div>
+            <div id="mapClock"></div>
+        </div>
+
+        <!-- Map Loader -->
+        <div id="mapLoader" class="map-loader">
+            <div class="radar"></div>
+            <p>SYNCING ORBITAL DATA</p>
+        </div>
+
+        <!-- NASA MAP -->
+        <iframe
+            id="nasaMap"
+            src="https://eyes.nasa.gov/apps/solar-system/#/home"
+            loading="lazy">
+        </iframe>
+
+        <!-- Scanlines -->
+        <div class="scanlines"></div>
+
+        <!-- Exit -->
+        <button class="exit-map" onclick="app.navigate('home')">EXIT MAP</button>
+
+    </div>
+</section>
+
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
