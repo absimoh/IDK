@@ -1,166 +1,156 @@
-/* --- 1. CONFIGURATION --- */
+/* --- LUMINODE DESIGN SYSTEM --- */
 :root {
-    --bg-deep: #030508;
-    --bg-panel: rgba(16, 20, 30, 0.75);
-    --primary: #00f3ff; /* Neon Cyan */
-    --secondary: #bc13fe; /* Neon Purple */
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --text-main: #ffffff;
-    --text-dim: #8b9bb4;
-    --font-head: 'Orbitron', sans-serif;
-    --font-body: 'Rajdhani', sans-serif;
+    --bg-deep: #020305;
+    --bg-panel: rgba(15, 20, 30, 0.6);
+    --primary: #00f0ff; /* Plasma Cyan */
+    --secondary: #ffd700; /* Solar Gold */
+    --accent: #ff0055; /* Alert Red */
+    --text-main: #e0e6ed;
+    --text-dim: #7d8ca3;
+    
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    
+    --glass: blur(20px) saturate(180%);
+    --border-tech: 1px solid rgba(0, 240, 255, 0.15);
+    --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     background-color: var(--bg-deep);
+    background-image: 
+        radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 85, 0.05) 0%, transparent 50%);
     color: var(--text-main);
     font-family: var(--font-body);
     overflow-x: hidden;
-    font-size: 16px;
+    min-height: 100vh;
+    letter-spacing: 0.02em;
 }
 
-/* --- 2. BACKGROUND & FONTS --- */
-#star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+/* --- 2. CANVAS & TYPOGRAPHY --- */
+#star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
 
-h1, h2, h3 { font-family: var(--font-head); text-transform: uppercase; letter-spacing: 2px; }
-h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; color: transparent; }
-h2 { font-size: 2rem; border-left: 4px solid var(--primary); padding-left: 15px; margin: 2rem 0; }
-p { color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem; font-weight: 400; }
+h1, h2, h3, .logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; }
+h1 { font-size: 4rem; line-height: 1.1; font-weight: 700; background: linear-gradient(180deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 30px rgba(0, 240, 255, 0.3); }
+h2 { font-size: 2.5rem; position: relative; display: inline-block; padding-bottom: 10px; border-bottom: 2px solid var(--primary); margin-bottom: 2rem; }
+p { color: var(--text-dim); font-size: 1rem; line-height: 1.6; max-width: 60ch; margin-bottom: 1.5rem; }
 
-.container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
 
-/* --- 3. GLASS COMPONENT --- */
-.glass-panel {
-    background: var(--bg-panel);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.glass-panel:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 15px 50px rgba(0, 243, 255, 0.05); }
-
-/* --- 4. BUTTONS --- */
-.btn {
-    padding: 0.8rem 2.5rem; border: 1px solid var(--primary);
-    background: transparent; color: var(--primary);
-    font-family: var(--font-head); font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; cursor: pointer; transition: 0.3s;
-    position: relative; overflow: hidden;
-    display: inline-block; text-decoration: none;
-}
-.btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--primary); transition: 0.4s ease; z-index: -1; }
-.btn:hover { color: #000; box-shadow: 0 0 20px var(--primary); }
-.btn:hover::before { left: 0; }
-
-/* --- 5. NAVIGATION --- */
+/* --- 3. NAVBAR (HUD STYLE) --- */
 nav { 
     position: fixed; top: 0; width: 100%; z-index: 1000; 
-    background: rgba(3, 5, 8, 0.85); backdrop-filter: blur(15px); 
+    background: rgba(2, 3, 5, 0.8); backdrop-filter: var(--glass); 
     border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 0;
 }
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-family: var(--font-head); font-size: 1.5rem; color: white; display: flex; align-items: center; gap: 10px; }
-.logo i { color: var(--primary); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
-.nav-link:hover, .nav-link.active { color: var(--primary); text-shadow: 0 0 10px rgba(0, 243, 255, 0.6); }
+.logo { font-size: 1.4rem; font-weight: 900; color: white; letter-spacing: 0.2em; display: flex; align-items: center; gap: 15px; }
+.logo span { color: var(--primary); }
+.clock { font-family: monospace; color: var(--primary); font-size: 0.9rem; background: rgba(0,240,255,0.1); padding: 5px 10px; border-radius: 4px; }
+.nav-links { display: flex; gap: 3rem; list-style: none; }
+.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; transition: 0.3s; cursor: pointer; position: relative; }
+.nav-link::after { content:''; position: absolute; bottom: -5px; left:0; width:0%; height:2px; background:var(--primary); transition:0.3s; }
+.nav-link:hover, .nav-link.active { color: white; text-shadow: 0 0 10px var(--primary); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* --- 6. LAYOUT SECTIONS --- */
-section { min-height: 100vh; padding-top: 100px; display: none; opacity: 0; transition: opacity 0.6s ease; }
+/* --- 4. LAYOUT --- */
+section { min-height: 100vh; padding-top: 120px; display: none; opacity: 0; transition: opacity 0.8s ease; }
 section.active { display: block; opacity: 1; }
 .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
 
-/* --- 7. PROFESSIONAL MAP (HUD STYLE) --- */
-.map-container {
-    position: relative;
-    width: 100%;
-    height: 75vh; /* الارتفاع الأنسب: 75% من ارتفاع الشاشة */
-    margin: 3rem 0;
-    border: 1px solid rgba(0, 243, 255, 0.2);
-    border-radius: 4px;
+/* --- 5. LUMINODE BUTTONS --- */
+.btn {
+    position: relative; display: inline-block;
+    padding: 1rem 3rem; background: transparent; border: 1px solid var(--primary);
+    color: var(--primary); font-family: var(--font-display); font-weight: 700; font-size: 0.9rem;
+    text-transform: uppercase; letter-spacing: 0.15em; cursor: pointer;
+    transition: 0.4s; overflow: hidden;
+    clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+}
+.btn::before { content:''; position: absolute; top:0; left:-100%; width:100%; height:100%; background:var(--primary); transition:0.4s; z-index:-1; }
+.btn:hover { color: #000; box-shadow: 0 0 30px var(--primary); }
+.btn:hover::before { left:0; }
+
+/* --- 6. HIGH-END MAP (HUD & SCANLINES) --- */
+.map-wrapper {
+    position: relative; width: 100%; height: 78vh; margin: 3rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.1); background: #000;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
     overflow: hidden;
-    background: #000;
-    box-shadow: inset 0 0 50px rgba(0, 243, 255, 0.05);
+}
+/* HUD Borders */
+.map-wrapper::before { content:''; position:absolute; top:20px; left:20px; right:20px; bottom:20px; border:1px solid rgba(0,240,255,0.1); pointer-events:none; z-index:10; }
+.map-wrapper::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border:1px solid rgba(0,240,255,0.3); pointer-events:none; }
+
+.iframe-box { width: 100%; height: 100%; opacity: 0.9; transition: opacity 1s; }
+.iframe-box iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* Monitor Scanlines */
+.scanlines {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.15) 50%,
+        rgba(0,0,0,0.15)
+    );
+    background-size: 100% 4px;
+    pointer-events: none; /* Allows clicking through scanlines */
+    z-index: 5;
 }
 
-/* HUD Corners Effect */
-.map-container::before, .map-container::after {
-    content: ''; position: absolute; width: 20px; height: 20px;
-    border: 2px solid var(--primary); transition: all 0.5s ease; pointer-events: none;
-}
-.map-container::before { top: 0; left: 0; border-right: none; border-bottom: none; }
-.map-container::after { bottom: 0; right: 0; border-left: none; border-top: none; }
-
-.map-container:hover::before, .map-container:hover::after { width: 40px; height: 40px; box-shadow: 0 0 10px var(--primary); }
-
-.iframe-wrapper { width: 100%; height: 100%; }
-.iframe-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
-
-/* NASA Logo Hider (Refined) */
+/* NASA Logo Hider (Integrated into HUD) */
 .logo-hider {
     position: absolute; bottom: 0; right: 0; width: 160px; height: 60px;
-    background: var(--bg-deep); /* Matches page bg */
+    background: #000; /* Matches iframe background */
     border-top-left-radius: 10px;
-    z-index: 10;
-    pointer-events: none; /* Allows click through */
-    box-shadow: -5px -5px 15px rgba(0,0,0,0.8); /* Blends edge */
+    z-index: 6;
+    pointer-events: none; /* Allows clicking through hider */
+    box-shadow: -5px -5px 15px rgba(0,0,0,0.9);
 }
 
-/* --- 8. SEARCH & CARDS --- */
-.search-wrapper { position: relative; max-width: 600px; margin: 0 auto 3rem; }
-.search-bar {
-    width: 100%; background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 50px;
-    padding: 1rem 2rem; color: white; font-family: var(--font-body);
-    font-size: 1.1rem; outline: none; transition: 0.3s;
+/* Search Bar (Tech Style) */
+.search-container {
+    position: relative; max-width: 600px; margin: 0 auto 3rem;
+    background: rgba(255,255,255,0.03); border-radius: 50px;
+    padding: 5px; border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center;
 }
-.search-bar:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 243, 255, 0.1); }
+.search-input {
+    width: 100%; background: transparent; border: none;
+    padding: 1rem 2rem; color: white; font-family: var(--font-display);
+    font-size: 1.1rem; outline: none; letter-spacing: 0.05em;
+}
 
+/* Cards & Modal */
 .planet-card {
-    text-align: center; cursor: pointer;
-    border: 1px solid transparent; position: relative; overflow: hidden;
+    background: var(--bg-panel); border: 1px solid transparent;
+    border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer;
+    transition: 0.3s; backdrop-filter: blur(10px);
 }
-.planet-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-.planet-img {
-    width: 120px; height: 120px; margin: 0 auto 1.5rem;
-    border-radius: 50%; object-fit: cover;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5); transition: 0.4s;
-}
-.planet-card:hover .planet-img { box-shadow: 0 0 40px var(--primary); }
+.planet-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.planet-img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1.5rem; border: 2px solid var(--primary); }
 
-/* --- 9. MODAL --- */
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-.modal.active { display: flex; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.modal-box {
-    background: #0f121a; width: 90%; max-width: 650px;
-    border: 1px solid var(--primary); border-radius: 12px;
-    padding: 0; overflow: hidden; box-shadow: 0 0 50px rgba(0, 243, 255, 0.15);
-}
-.modal-header { background: rgba(0, 243, 255, 0.05); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.modal-body { padding: 2rem; }
-.close-modal { font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
-.close-modal:hover { color: var(--accent); transform: rotate(90deg); }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+.modal.active { display: flex; animation: fadeIn 0.3s; }
+.modal-content { background: #0f121a; width: 90%; max-width: 700px; border: 1px solid var(--primary); border-radius: 12px; padding: 0; overflow: hidden; box-shadow: 0 0 50px rgba(0,240,255,0.2); }
+.modal-header { background: rgba(0,240,255,0.1); padding: 1.5rem; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.modal-body { padding: 2rem; display: flex; gap: 20px; align-items: start; }
 
-@keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-
-/* --- 10. FORM & FOOTER --- */
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; color: var(--primary); font-family: var(--font-head); }
-.form-input {
-    width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
-    padding: 1rem; color: white; border-radius: 5px; font-family: var(--font-body); transition: 0.3s;
-}
-.form-input:focus { border-color: var(--primary); outline: none; }
+/* Contact Form */
+.contact-form { max-width: 600px; margin: 0 auto; background: var(--bg-panel); padding: 3rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
+.input-group { margin-bottom: 1.5rem; }
+.input-group label { display: block; margin-bottom: 0.5rem; color: var(--primary); font-family: var(--font-display); }
+.form-field { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; color: white; border-radius: 4px; font-family: var(--font-body); }
 
 /* Responsive */
 @media (max-width: 768px) {
-    h1 { font-size: 2.2rem; }
-    .map-container { height: 60vh; }
-    .nav-links { display: none; }
+    h1 { font-size: 2.5rem; }
+    .map-wrapper { height: 60vh; }
+    .nav-links { display: none; } /* Add Hamburger if needed */
 }
