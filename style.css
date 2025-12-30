@@ -1,121 +1,166 @@
-/* --- 1. CORE SETTINGS --- */
+/* --- 1. CONFIGURATION --- */
 :root {
-    --bg-deep: #05070a;
-    --glass-bg: rgba(20, 25, 35, 0.7);
-    --primary: #00f2ff;
-    --secondary: #7000ff;
+    --bg-deep: #030508;
+    --bg-panel: rgba(16, 20, 30, 0.75);
+    --primary: #00f3ff; /* Neon Cyan */
+    --secondary: #bc13fe; /* Neon Purple */
+    --glass-border: rgba(255, 255, 255, 0.08);
     --text-main: #ffffff;
-    --text-dim: #a0aab5;
-    --font-display: 'Orbitron', sans-serif;
-    --font-body: 'Exo 2', sans-serif;
+    --text-dim: #8b9bb4;
+    --font-head: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
 body {
     background-color: var(--bg-deep);
     color: var(--text-main);
     font-family: var(--font-body);
     overflow-x: hidden;
-    min-height: 100vh;
+    font-size: 16px;
 }
 
-/* --- 2. BACKGROUND & TYPOGRAPHY --- */
+/* --- 2. BACKGROUND & FONTS --- */
 #star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 2px; }
-h1 { font-size: 3.5rem; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; color: transparent; }
-h2 { margin-bottom: 2rem; font-size: 2rem; }
-p { color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem; }
+h1, h2, h3 { font-family: var(--font-head); text-transform: uppercase; letter-spacing: 2px; }
+h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; color: transparent; }
+h2 { font-size: 2rem; border-left: 4px solid var(--primary); padding-left: 15px; margin: 2rem 0; }
+p { color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem; font-weight: 400; }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
 
-/* --- 3. COMPONENTS --- */
+/* --- 3. GLASS COMPONENT --- */
 .glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
     padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.glass-panel:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 15px 50px rgba(0, 243, 255, 0.05); }
 
+/* --- 4. BUTTONS --- */
 .btn {
-    padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--primary);
-    color: var(--primary); font-family: var(--font-display); font-weight: 700;
-    text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 1rem;
+    padding: 0.8rem 2.5rem; border: 1px solid var(--primary);
+    background: transparent; color: var(--primary);
+    font-family: var(--font-head); font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; cursor: pointer; transition: 0.3s;
+    position: relative; overflow: hidden;
+    display: inline-block; text-decoration: none;
 }
-.btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+.btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--primary); transition: 0.4s ease; z-index: -1; }
+.btn:hover { color: #000; box-shadow: 0 0 20px var(--primary); }
+.btn:hover::before { left: 0; }
 
-/* --- 4. NAVIGATION --- */
-nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.2rem 0; background: rgba(5, 7, 10, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+/* --- 5. NAVIGATION --- */
+nav { 
+    position: fixed; top: 0; width: 100%; z-index: 1000; 
+    background: rgba(3, 5, 8, 0.85); backdrop-filter: blur(15px); 
+    border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 0;
+}
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 1.5rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 10px; }
+.logo { font-family: var(--font-head); font-size: 1.5rem; color: white; display: flex; align-items: center; gap: 10px; }
 .logo i { color: var(--primary); }
-.nav-links { display: flex; gap: 2rem; list-style: none; }
-.nav-link { color: var(--text-dim); text-decoration: none; font-weight: 600; transition: 0.3s; cursor: pointer; }
-.nav-link:hover, .nav-link.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
+.nav-link:hover, .nav-link.active { color: var(--primary); text-shadow: 0 0 10px rgba(0, 243, 255, 0.6); }
 
-/* --- 5. LAYOUT --- */
-section { min-height: 100vh; padding: 100px 0 50px; display: none; opacity: 0; transition: opacity 0.5s ease; }
+/* --- 6. LAYOUT SECTIONS --- */
+section { min-height: 100vh; padding-top: 100px; display: none; opacity: 0; transition: opacity 0.6s ease; }
 section.active { display: block; opacity: 1; }
-.hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
 
-/* --- 6. SOLAR SYSTEM MAP (NASA) --- */
-.iframe-wrapper {
+/* --- 7. PROFESSIONAL MAP (HUD STYLE) --- */
+.map-container {
     position: relative;
     width: 100%;
-    height: 70vh;
-    margin-bottom: 2rem;
-    border: 1px solid var(--primary);
-    border-radius: 16px;
+    height: 75vh; /* الارتفاع الأنسب: 75% من ارتفاع الشاشة */
+    margin: 3rem 0;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 4px;
     overflow: hidden;
     background: #000;
+    box-shadow: inset 0 0 50px rgba(0, 243, 255, 0.05);
 }
-.iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-/* NASA Logo Hider */
+/* HUD Corners Effect */
+.map-container::before, .map-container::after {
+    content: ''; position: absolute; width: 20px; height: 20px;
+    border: 2px solid var(--primary); transition: all 0.5s ease; pointer-events: none;
+}
+.map-container::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+.map-container::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.map-container:hover::before, .map-container:hover::after { width: 40px; height: 40px; box-shadow: 0 0 10px var(--primary); }
+
+.iframe-wrapper { width: 100%; height: 100%; }
+.iframe-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+/* NASA Logo Hider (Refined) */
 .logo-hider {
-    position: absolute;
-    bottom: 20px; right: 20px;
-    width: 150px; height: 50px;
-    background: #05070a; /* Same as body bg */
+    position: absolute; bottom: 0; right: 0; width: 160px; height: 60px;
+    background: var(--bg-deep); /* Matches page bg */
+    border-top-left-radius: 10px;
     z-index: 10;
-    border-radius: 8px;
-    pointer-events: none; /* Allows clicking through */
-    box-shadow: 0 0 10px rgba(0,242,255,0.1);
+    pointer-events: none; /* Allows click through */
+    box-shadow: -5px -5px 15px rgba(0,0,0,0.8); /* Blends edge */
 }
 
-/* --- 7. CARDS & SEARCH --- */
-.search-container {
-    position: relative; max-width: 500px; margin: 2rem auto;
-    background: rgba(255,255,255,0.05); border-radius: 30px; padding: 0 20px;
-    display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.1);
+/* --- 8. SEARCH & CARDS --- */
+.search-wrapper { position: relative; max-width: 600px; margin: 0 auto 3rem; }
+.search-bar {
+    width: 100%; background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 50px;
+    padding: 1rem 2rem; color: white; font-family: var(--font-body);
+    font-size: 1.1rem; outline: none; transition: 0.3s;
 }
-.search-container input { width: 100%; background: transparent; border: none; padding: 15px; color: white; font-family: var(--font-body); outline: none; }
+.search-bar:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 243, 255, 0.1); }
 
 .planet-card {
-    padding: 2rem; text-align: center; cursor: pointer;
-    background: rgba(255,255,255,0.02); border: 1px solid transparent;
-    border-radius: 16px; transition: 0.4s;
+    text-align: center; cursor: pointer;
+    border: 1px solid transparent; position: relative; overflow: hidden;
 }
-.planet-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-10px); border-color: var(--primary); }
-.planet-icon { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem; object-fit: cover; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+.planet-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+.planet-img {
+    width: 120px; height: 120px; margin: 0 auto 1.5rem;
+    border-radius: 50%; object-fit: cover;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5); transition: 0.4s;
+}
+.planet-card:hover .planet-img { box-shadow: 0 0 40px var(--primary); }
 
-/* --- 8. MODAL & FORM --- */
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; justify-content: center; align-items: center; }
-.modal.open { display: flex; animation: zoomIn 0.3s ease; }
-.modal-content { background: #0f1219; width: 90%; max-width: 600px; border-radius: 16px; border: 1px solid var(--primary); padding: 2rem; position: relative; }
-.modal-header { display: flex; justify-content: space-between; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
-.close-modal { font-size: 2rem; cursor: pointer; color: var(--text-dim); }
-@keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+/* --- 9. MODAL --- */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+.modal.active { display: flex; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal-box {
+    background: #0f121a; width: 90%; max-width: 650px;
+    border: 1px solid var(--primary); border-radius: 12px;
+    padding: 0; overflow: hidden; box-shadow: 0 0 50px rgba(0, 243, 255, 0.15);
+}
+.modal-header { background: rgba(0, 243, 255, 0.05); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.modal-body { padding: 2rem; }
+.close-modal { font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
+.close-modal:hover { color: var(--accent); transform: rotate(90deg); }
 
+@keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+/* --- 10. FORM & FOOTER --- */
 .form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; color: var(--primary); }
-.form-group input, .form-group textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; color: white; border-radius: 5px; font-family: var(--font-body); }
+.form-group label { display: block; margin-bottom: 0.5rem; color: var(--primary); font-family: var(--font-head); }
+.form-input {
+    width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem; color: white; border-radius: 5px; font-family: var(--font-body); transition: 0.3s;
+}
+.form-input:focus { border-color: var(--primary); outline: none; }
 
 /* Responsive */
 @media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    .map-container { height: 60vh; }
     .nav-links { display: none; }
-    h1 { font-size: 2rem; }
 }
