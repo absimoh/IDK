@@ -22,6 +22,7 @@ body{
     z-index:-1;
 }
 
+/* LOADER */
 #loader{
     position:fixed;
     inset:0;
@@ -39,12 +40,6 @@ body{
     border-top:3px solid var(--primary);
     border-radius:50%;
     animation:spin 1s linear infinite;
-}
-#loader p{
-    margin-top:1rem;
-    color:var(--primary);
-    font-family:var(--fontD);
-    letter-spacing:.2em;
 }
 
 /* NAV */
@@ -65,7 +60,6 @@ nav{
 .logo{
     font-family:var(--fontD);
     font-weight:900;
-    letter-spacing:.15em;
 }
 .logo span{color:var(--primary)}
 .nav-links{
@@ -79,7 +73,6 @@ nav{
     font-family:var(--fontD);
     font-size:.8rem;
 }
-.nav-links li:hover{color:white}
 .clock{
     font-family:monospace;
     color:var(--primary);
@@ -93,6 +86,7 @@ nav{
 }
 .section.active{display:block}
 
+/* HERO */
 .hero{
     height:100vh;
     display:flex;
@@ -106,10 +100,6 @@ nav{
     font-size:4rem;
 }
 .hero span{color:var(--primary)}
-.hero p{
-    margin-top:1rem;
-    color:var(--dim);
-}
 
 /* BUTTON */
 .btn{
@@ -120,14 +110,9 @@ nav{
     color:var(--primary);
     cursor:pointer;
     font-family:var(--fontD);
-    letter-spacing:.15em;
-}
-.btn:hover{
-    background:var(--primary);
-    color:#000;
 }
 
-/* MAP MODE */
+/* MAP */
 .map-mode{padding:0}
 .map-wrapper{
     position:fixed;
@@ -151,9 +136,37 @@ nav{
     color:var(--primary);
 }
 .map-hud small{
-    display:block;
     font-size:.6rem;
     color:var(--dim);
+}
+
+/* SEARCH */
+.planet-search{
+    position:absolute;
+    top:20px;
+    right:20px;
+    z-index:25;
+    display:flex;
+    background:rgba(0,0,0,.6);
+    border:1px solid var(--primary);
+    border-radius:30px;
+    overflow:hidden;
+}
+.planet-search input{
+    background:none;
+    border:none;
+    padding:.7rem 1.2rem;
+    color:white;
+    font-family:var(--fontD);
+    outline:none;
+    width:160px;
+}
+.planet-search button{
+    background:var(--primary);
+    border:none;
+    padding:0 1.2rem;
+    cursor:pointer;
+    font-family:var(--fontD);
 }
 
 /* MAP LOADER */
@@ -189,7 +202,7 @@ nav{
     z-index:10;
 }
 
-/* EXIT BUTTON */
+/* EXIT */
 .exit-map{
     position:absolute;
     bottom:20px;
@@ -203,12 +216,4 @@ nav{
     font-family:var(--fontD);
 }
 
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-    .hero h1{font-size:2.5rem}
-    .nav-links{display:none}
-}
+@keyframes spin{to{transform:rotate(360deg)}}
