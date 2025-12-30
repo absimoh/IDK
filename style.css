@@ -1,9 +1,9 @@
-/* --- VARIABLES & RESET --- */
+/* --- 1. CORE SETTINGS --- */
 :root {
     --bg-deep: #05070a;
-    --glass-bg: rgba(20, 25, 35, 0.6);
-    --primary: #00f2ff; /* Neon Cyan */
-    --secondary: #7000ff; /* Neon Purple */
+    --glass-bg: rgba(20, 25, 35, 0.7);
+    --primary: #00f2ff;
+    --secondary: #7000ff;
     --text-main: #ffffff;
     --text-dim: #a0aab5;
     --font-display: 'Orbitron', sans-serif;
@@ -20,36 +20,34 @@ body {
     min-height: 100vh;
 }
 
-/* Canvas Background */
+/* --- 2. BACKGROUND & TYPOGRAPHY --- */
 #star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-/* Typography & Utilities */
 h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 2px; }
 h1 { font-size: 3.5rem; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; color: transparent; }
+h2 { margin-bottom: 2rem; font-size: 2rem; }
 p { color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem; }
+
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
-/* Glass Panel Style */
+/* --- 3. COMPONENTS --- */
 .glass-panel {
     background: var(--glass-bg);
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 2rem;
 }
 
-/* --- PRELOADER --- */
-#preloader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--bg-deep); z-index: 9999;
-    display: flex; justify-content: center; align-items: center; flex-direction: column;
-    transition: opacity 0.5s ease;
+.btn {
+    padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--primary);
+    color: var(--primary); font-family: var(--font-display); font-weight: 700;
+    text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 1rem;
 }
-.loader { width: 50px; height: 50px; border: 3px solid transparent; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
-@keyframes spin { 100% { transform: rotate(360deg); } }
+.btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
 
-/* --- NAVIGATION --- */
-nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.2rem 0; background: rgba(5, 7, 10, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+/* --- 4. NAVIGATION --- */
+nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.2rem 0; background: rgba(5, 7, 10, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
 .logo { font-size: 1.5rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 10px; }
 .logo i { color: var(--primary); }
@@ -57,21 +55,38 @@ nav { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1.2rem 0; ba
 .nav-link { color: var(--text-dim); text-decoration: none; font-weight: 600; transition: 0.3s; cursor: pointer; }
 .nav-link:hover, .nav-link.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
-/* --- LAYOUT --- */
+/* --- 5. LAYOUT --- */
 section { min-height: 100vh; padding: 100px 0 50px; display: none; opacity: 0; transition: opacity 0.5s ease; }
 section.active { display: block; opacity: 1; }
 .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
 
-/* --- BUTTONS --- */
-.hero-btn {
-    padding: 1rem 2.5rem; background: transparent; border: 1px solid var(--primary);
-    color: var(--primary); font-family: var(--font-display); font-weight: 700;
-    text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 2rem;
+/* --- 6. SOLAR SYSTEM MAP (NASA) --- */
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    margin-bottom: 2rem;
+    border: 1px solid var(--primary);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
 }
-.hero-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary); }
+.iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-/* --- SEARCH & MAP --- */
+/* NASA Logo Hider */
+.logo-hider {
+    position: absolute;
+    bottom: 20px; right: 20px;
+    width: 150px; height: 50px;
+    background: #05070a; /* Same as body bg */
+    z-index: 10;
+    border-radius: 8px;
+    pointer-events: none; /* Allows clicking through */
+    box-shadow: 0 0 10px rgba(0,242,255,0.1);
+}
+
+/* --- 7. CARDS & SEARCH --- */
 .search-container {
     position: relative; max-width: 500px; margin: 2rem auto;
     background: rgba(255,255,255,0.05); border-radius: 30px; padding: 0 20px;
@@ -79,53 +94,6 @@ section.active { display: block; opacity: 1; }
 }
 .search-container input { width: 100%; background: transparent; border: none; padding: 15px; color: white; font-family: var(--font-body); outline: none; }
 
-/* خريطة ناسا التفاعلية */
-.iframe-wrapper {
-    position: relative;
-    width: 100%;
-    height: 70vh; /* ارتفاع الخريطة */
-    margin-bottom: 3rem;
-    border: 1px solid var(--primary);
-    border-radius: 16px;
-    overflow: hidden;
-    background: black;
-}
-
-.iframe-wrapper iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-}
-
-/* الغطاء لإخفاء شعار ناسا */
-.logo-hider {
-    position: absolute;
-    bottom: 20px;          /* من الأسفل */
-    right: 20px;            /* من اليمين */
-    width: 150px;          /* عرض الغطاء */
-    height: 50px;          /* ارتفاع الغطاء */
-    background: #05070a;    /* لون نفس خلفية الموقع */
-    z-index: 10;            /* ليكون فوق الخريطة */
-    border-radius: 8px;
-    pointer-events: none;  /* هام جداً: يسمح لك بالنقر على الخريطة رغم وجود الغطاء */
-    box-shadow: 0 0 10px rgba(0,242,255,0.1); /* لمسة خفيفة للحدود */
-}
-
-/* Custom Map Area (Replacing NASA Iframe) */
-.map-container {
-    width: 100%; height: 70vh; margin-bottom: 3rem;
-    background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, rgba(0,0,0,0) 70%),
-                repeating-linear-gradient(0deg, transparent 0, transparent 1px, rgba(0, 242, 255, 0.03) 1px, rgba(0, 242, 255, 0.03) 2px),
-                repeating-linear-gradient(90deg, transparent 0, transparent 1px, rgba(0, 242, 255, 0.03) 1px, rgba(0, 242, 255, 0.03) 2px);
-    border: 1px solid var(--primary); border-radius: 12px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center; position: relative; overflow: hidden;
-}
-.map-icon { font-size: 5rem; color: var(--primary); animation: pulse 3s infinite; margin-bottom: 1rem; }
-@keyframes pulse { 0% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.5; transform: scale(1); } }
-
-/* --- CARDS --- */
 .planet-card {
     padding: 2rem; text-align: center; cursor: pointer;
     background: rgba(255,255,255,0.02); border: 1px solid transparent;
@@ -134,7 +102,7 @@ section.active { display: block; opacity: 1; }
 .planet-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-10px); border-color: var(--primary); }
 .planet-icon { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem; object-fit: cover; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
 
-/* --- MODAL --- */
+/* --- 8. MODAL & FORM --- */
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; justify-content: center; align-items: center; }
 .modal.open { display: flex; animation: zoomIn 0.3s ease; }
 .modal-content { background: #0f1219; width: 90%; max-width: 600px; border-radius: 16px; border: 1px solid var(--primary); padding: 2rem; position: relative; }
@@ -142,14 +110,9 @@ section.active { display: block; opacity: 1; }
 .close-modal { font-size: 2rem; cursor: pointer; color: var(--text-dim); }
 @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-/* --- FORM --- */
 .form-group { margin-bottom: 1.5rem; }
 .form-group label { display: block; margin-bottom: 0.5rem; color: var(--primary); }
 .form-group input, .form-group textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px; color: white; border-radius: 5px; font-family: var(--font-body); }
-
-/* Toast */
-.toast { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: black; padding: 1rem 2rem; border-radius: 5px; transform: translateY(100px); transition: 0.3s; }
-.toast.show { transform: translateY(0); }
 
 /* Responsive */
 @media (max-width: 768px) {
