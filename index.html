@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMINODE | Orbital Command</title>
+    <title>LUMINODE | Orbital System</title>
     
-    <!-- Resources -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Connect CSS -->
@@ -15,65 +15,60 @@
 </head>
 <body>
 
-    <!-- Stars -->
+    <!-- Stars Canvas -->
     <canvas id="star-canvas"></canvas>
 
-    <!-- Loader -->
-    <div id="loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-deep); z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:opacity 0.5s;">
-        <div style="width:50px; height:50px; border:2px solid transparent; border-top-color:var(--primary); border-radius:50%; animation:spin 1s linear infinite;"></div>
-        <h3 style="margin-top:15px; font-size:0.8rem; color:var(--primary); letter-spacing:0.2em;">SYSTEM BOOT</h3>
+    <!-- Preloader (Reliable Version) -->
+    <div id="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text" id="loader-text">INITIALIZING SYSTEM...</div>
+        <button class="loader-btn" id="loader-btn" onclick="app.dismissLoader()">FORCE LOAD</button>
     </div>
-    <style>@keyframes spin {100%{transform:rotate(360deg);}}</style>
 
-    <!-- Nav -->
+    <!-- Navigation -->
     <nav>
-        <div class="container nav-container">
-            <div class="logo"><i class="fa-solid fa-network-wired"></i> LUMI<span>NODE</span></div>
-            <ul class="nav-links">
-                <li><a class="nav-link active" onclick="app.navigate('home')">DASHBOARD</a></li>
-                <li><a class="nav-link" onclick="app.navigate('solar')">ORBITAL MAP</a></li>
-                <li><a class="nav-link" onclick="app.navigate('deep-space')">DEEP SPACE</a></li>
-                <li><a class="nav-link" onclick="app.navigate('contact')">UPLINK</a></li>
-            </ul>
-            <div class="clock" id="clock">00:00:00</div>
-        </div>
+        <div class="logo"><i class="fa-solid fa-cube"></i> LUMI<span>NODE</span></div>
+        <ul class="nav-links">
+            <li><a class="nav-link active" onclick="app.navTo('home')">DASHBOARD</a></li>
+            <li><a class="nav-link" onclick="app.navTo('solar')">ORBITAL MAP</a></li>
+            <li><a class="nav-link" onclick="app.navTo('data')">DATA ARCHIVE</a></li>
+            <li><a class="nav-link" onclick="app.navTo('contact')">COMM LINK</a></li>
+        </ul>
     </nav>
 
     <main>
         <!-- Home -->
         <section id="home" class="section active">
             <div class="hero">
-                <div class="container hero-content">
-                    <h1>Orbital <br> <span style="color:var(--primary)">Control</span></h1>
-                    <p>Advanced telemetry and visualization interface for the Solar System. Real-time data feeds.</p>
-                    <a class="btn" onclick="app.navigate('solar')">INITIATE MAP</a>
+                <div class="container">
+                    <h1>Orbital <br>Command</h1>
+                    <p style="margin: 0 auto;">Next-Generation Solar System Telemetry Interface. Real-time data analysis and visualization.</p>
+                    <div style="margin-top:3rem;">
+                        <button class="btn-tech" onclick="app.navTo('solar')">ENTER SYSTEM</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Solar Map (Same Map Requested) -->
+        <!-- Solar Map -->
         <section id="solar" class="section">
             <div class="container">
                 <div style="text-align:center;">
-                    <h2>SOLAR SYSTEM TELEMETRY</h2>
-                    <p>LIVE FEED FROM ORBITAL SENSORS.</p>
+                    <h2>System Map</h2>
+                    <p>LIVE VISUALIZATION FEED</p>
                 </div>
 
-                <!-- THE MAP WITH SCANLINES & HUD -->
-                <div class="map-wrapper">
-                    <div class="iframe-box">
-                        <iframe src="https://eyes.nasa.gov/apps/solar-system/#/home"></iframe>
-                    </div>
-                    <!-- Scanlines Overlay -->
-                    <div class="scanlines"></div>
-                    <!-- Logo Hider -->
-                    <div class="logo-hider"></div>
+                <!-- High-Tech Map Container -->
+                <div class="map-container">
+                    <div class="map-border-anim"></div>
+                    <iframe src="https://eyes.nasa.gov/apps/solar-system/#/home" class="iframe-layer"></iframe>
+                    <div class="scan-overlay"></div>
+                    <div class="nasa-hider"></div>
                 </div>
 
                 <!-- Search -->
-                <div class="search-container">
-                    <i class="fa-solid fa-search" style="padding-left:15px; color:var(--primary)"></i>
-                    <input type="text" id="searchInput" class="search-input" placeholder="SEARCH CELESTIAL OBJECTS...">
+                <div class="search-box">
+                    <input type="text" id="search" placeholder="SEARCH OBJECTS (e.g. Mars)...">
                 </div>
 
                 <!-- Grid -->
@@ -81,25 +76,25 @@
             </div>
         </section>
 
-        <!-- Deep Space -->
-        <section id="deep-space" class="section">
+        <!-- Data Archive -->
+        <section id="data" class="section">
             <div class="container">
-                <h2>Deep Space Array</h2>
+                <h2>Data Archive</h2>
                 <div class="grid-3">
-                    <div class="planet-card">
-                        <i class="fa-solid fa-satellite-dish" style="font-size:2rem; color:var(--primary); margin-bottom:1rem;"></i>
-                        <h3>Radio Telemetry</h3>
-                        <p>Processing signals from pulsars and black holes.</p>
+                    <div class="card">
+                        <i class="fa-solid fa-microchip" style="font-size:2rem; color:var(--primary); margin-bottom:1rem;"></i>
+                        <h3>Quantum Core</h3>
+                        <p>Processing deep space sensor data.</p>
                     </div>
-                    <div class="planet-card">
-                        <i class="fa-solid fa-microchip" style="font-size:2rem; color:var(--secondary); margin-bottom:1rem;"></i>
-                        <h3>Quantum Sensors</h3>
-                        <p>Detecting fluctuations in dark matter density.</p>
+                    <div class="card">
+                        <i class="fa-solid fa-wind" style="font-size:2rem; color:var(--secondary); margin-bottom:1rem;"></i>
+                        <h3>Solar Flares</h3>
+                        <p>Monitoring coronal mass ejection risks.</p>
                     </div>
-                    <div class="planet-card">
-                        <i class="fa-solid fa-shield-halved" style="font-size:2rem; color:var(--accent); margin-bottom:1rem;"></i>
-                        <h3>Collision Alerts</h3>
-                        <p>Monitoring Near Earth Objects (NEO) trajectories.</p>
+                    <div class="card">
+                        <i class="fa-solid fa-satellite" style="font-size:2rem; color:var(--alert); margin-bottom:1rem;"></i>
+                        <h3>Satellites</h3>
+                        <p>Tracking orbital debris patterns.</p>
                     </div>
                 </div>
             </div>
@@ -107,19 +102,15 @@
 
         <!-- Contact -->
         <section id="contact" class="section">
-             <div class="container">
-                <form class="contact-form" onsubmit="app.submitForm(event)">
-                    <h2 style="margin-bottom:2rem; border-bottom:1px solid var(--primary);">TRANSMISSION UPLINK</h2>
-                    <div class="input-group">
-                        <label>OPERATOR ID</label>
-                        <input type="text" class="form-field" required>
-                    </div>
-                    <div class="input-group">
-                        <label>DATA PACKET</label>
-                        <textarea rows="4" class="form-field" required></textarea>
-                    </div>
-                    <button class="btn" style="width:100%;">SEND TRANSMISSION</button>
-                </form>
+             <div class="container" style="max-width:600px;">
+                <div class="card" style="text-align:center; border-color:var(--primary);">
+                    <h2 style="justify-content:center;">COMMUNICATION</h2>
+                    <form onsubmit="event.preventDefault(); alert('TRANSMISSION SENT');">
+                        <input type="text" placeholder="OPERATOR ID" class="search-box" style="margin-bottom:1rem;">
+                        <textarea rows="4" placeholder="MESSAGE PACKET" class="search-box" style="margin-bottom:2rem;"></textarea>
+                        <button class="btn-tech" style="width:100%;">SEND UPLINK</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
@@ -128,14 +119,14 @@
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="mName" style="margin:0;">OBJECT</h3>
-                <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:1.5rem; color:var(--text-dim);" onclick="app.closeModal()"></i>
+                <h3 id="mName">OBJECT</h3>
+                <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:1.5rem;" onclick="app.closeModal()"></i>
             </div>
             <div class="modal-body">
-                <img id="mImg" src="" style="width:120px; height:120px; border-radius:50%; border:2px solid var(--primary);">
+                <img id="mImg" src="" style="width:120px; height:120px; border-radius:50%; border:2px solid var(--primary); object-fit:cover;">
                 <div>
-                    <p id="mDesc" style="color:white; margin-bottom:0.5rem;"></p>
-                    <p id="mTrivia" style="font-size:0.9rem;"></p>
+                    <p id="mDesc" style="color:white;"></p>
+                    <p id="mTrivia" style="margin-top:10px; color:var(--primary); font-size:0.9rem;"></p>
                 </div>
             </div>
         </div>
