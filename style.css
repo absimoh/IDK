@@ -1,19 +1,15 @@
-/* --- LUMINODE DESIGN SYSTEM --- */
+/* --- LUMINODE V2: ULTRA PRO DESIGN --- */
 :root {
-    --bg-deep: #020305;
-    --bg-panel: rgba(15, 20, 30, 0.6);
-    --primary: #00f0ff; /* Plasma Cyan */
-    --secondary: #ffd700; /* Solar Gold */
-    --accent: #ff0055; /* Alert Red */
-    --text-main: #e0e6ed;
-    --text-dim: #7d8ca3;
+    --bg-deep: #050508;
+    --bg-glass: rgba(10, 14, 23, 0.7);
+    --primary: #00f3ff; /* Cyber Cyan */
+    --secondary: #bc13fe; /* Neon Purple */
+    --alert: #ff2a6d; /* Cyber Red */
+    --text-light: #e0e6ed;
+    --text-dim: #64748b;
     
-    --font-display: 'Orbitron', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    
-    --glass: blur(20px) saturate(180%);
-    --border-tech: 1px solid rgba(0, 240, 255, 0.15);
-    --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.1);
+    --font-tech: 'Rajdhani', sans-serif;
+    --font-head: 'Orbitron', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,136 +17,148 @@
 body {
     background-color: var(--bg-deep);
     background-image: 
-        radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.1) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(255, 0, 85, 0.05) 0%, transparent 50%);
-    color: var(--text-main);
-    font-family: var(--font-body);
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px; /* Tech Grid Background */
+    color: var(--text-light);
+    font-family: var(--font-tech);
     overflow-x: hidden;
     min-height: 100vh;
-    letter-spacing: 0.02em;
 }
 
-/* --- 2. CANVAS & TYPOGRAPHY --- */
-#star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
+/* --- 2. CANVAS & FONTS --- */
+#star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
 
-h1, h2, h3, .logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; }
-h1 { font-size: 4rem; line-height: 1.1; font-weight: 700; background: linear-gradient(180deg, #fff 0%, var(--primary) 100%); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 30px rgba(0, 240, 255, 0.3); }
-h2 { font-size: 2.5rem; position: relative; display: inline-block; padding-bottom: 10px; border-bottom: 2px solid var(--primary); margin-bottom: 2rem; }
-p { color: var(--text-dim); font-size: 1rem; line-height: 1.6; max-width: 60ch; margin-bottom: 1.5rem; }
+h1, h2, h3, .logo { font-family: var(--font-head); text-transform: uppercase; letter-spacing: 0.15em; }
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; color: transparent; text-shadow: 0 0 40px rgba(0, 243, 255, 0.4); }
+h2 { font-size: 2rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+h2::before { content: '//'; color: var(--text-dim); font-weight: 300; }
+p { color: var(--text-dim); line-height: 1.7; margin-bottom: 1.5rem; font-size: 1.05rem; }
 
 .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
 
-/* --- 3. NAVBAR (HUD STYLE) --- */
-nav { 
-    position: fixed; top: 0; width: 100%; z-index: 1000; 
-    background: rgba(2, 3, 5, 0.8); backdrop-filter: var(--glass); 
-    border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1.2rem 0;
+/* --- 3. PRELOADER (RELIABLE) --- */
+#loader {
+    position: fixed; inset: 0; background: var(--bg-deep); z-index: 9999;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: opacity 0.6s ease, visibility 0.6s;
 }
-.nav-container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-size: 1.4rem; font-weight: 900; color: white; letter-spacing: 0.2em; display: flex; align-items: center; gap: 15px; }
-.logo span { color: var(--primary); }
-.clock { font-family: monospace; color: var(--primary); font-size: 0.9rem; background: rgba(0,240,255,0.1); padding: 5px 10px; border-radius: 4px; }
-.nav-links { display: flex; gap: 3rem; list-style: none; }
-.nav-link { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; transition: 0.3s; cursor: pointer; position: relative; }
-.nav-link::after { content:''; position: absolute; bottom: -5px; left:0; width:0%; height:2px; background:var(--primary); transition:0.3s; }
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-ring {
+    width: 80px; height: 80px; border: 2px solid rgba(0,243,255,0.2);
+    border-top-color: var(--primary); border-radius: 50%;
+    animation: spin 1s linear infinite; position: relative;
+}
+.loader-ring::after {
+    content:''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
+    border: 2px solid transparent; border-top-color: var(--secondary); border-radius: 50%;
+    animation: spin 1.5s linear reverse infinite;
+}
+.loader-text { margin-top: 20px; font-family: var(--font-head); color: var(--primary); letter-spacing: 2px; font-size: 0.9rem; }
+.loader-btn { margin-top: 15px; padding: 5px 15px; border: 1px solid var(--text-dim); color: var(--text-dim); background: transparent; cursor: pointer; font-family: var(--font-tech); display: none; }
+.loader-btn:hover { color: var(--alert); border-color: var(--alert); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- 4. NAVBAR (FLOATING) --- */
+nav { 
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 1000px; z-index: 100;
+    background: rgba(10, 14, 23, 0.6); backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 243, 255, 0.1); border-radius: 50px;
+    padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+.logo { font-size: 1.5rem; font-weight: 800; color: white; letter-spacing: 0.2em; display: flex; align-items: center; gap: 10px; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-link { color: var(--text-dim); text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; position: relative; cursor: pointer; }
 .nav-link:hover, .nav-link.active { color: white; text-shadow: 0 0 10px var(--primary); }
+.nav-link::after { content:''; position: absolute; bottom: -5px; left:0; width:0%; height:2px; background:var(--primary); transition:0.3s; }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* --- 4. LAYOUT --- */
-section { min-height: 100vh; padding-top: 120px; display: none; opacity: 0; transition: opacity 0.8s ease; }
-section.active { display: block; opacity: 1; }
-.hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+/* --- 5. LAYOUT --- */
+section { min-height: 100vh; padding-top: 140px; display: none; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+section.active { display: block; opacity: 1; transform: translateY(0); }
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem; }
 
-/* --- 5. LUMINODE BUTTONS --- */
-.btn {
-    position: relative; display: inline-block;
-    padding: 1rem 3rem; background: transparent; border: 1px solid var(--primary);
-    color: var(--primary); font-family: var(--font-display); font-weight: 700; font-size: 0.9rem;
-    text-transform: uppercase; letter-spacing: 0.15em; cursor: pointer;
-    transition: 0.4s; overflow: hidden;
-    clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+/* --- 6. THE MAP (ADVANCED HUD) --- */
+.map-container {
+    position: relative; width: 100%; height: 75vh; margin: 3rem 0;
+    background: #000; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
 }
-.btn::before { content:''; position: absolute; top:0; left:-100%; width:100%; height:100%; background:var(--primary); transition:0.4s; z-index:-1; }
-.btn:hover { color: #000; box-shadow: 0 0 30px var(--primary); }
-.btn:hover::before { left:0; }
-
-/* --- 6. HIGH-END MAP (HUD & SCANLINES) --- */
-.map-wrapper {
-    position: relative; width: 100%; height: 78vh; margin: 3rem 0;
-    border: 1px solid rgba(255, 255, 255, 0.1); background: #000;
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
-    overflow: hidden;
+/* Tech Borders */
+.map-container::before {
+    content: ''; position: absolute; inset: 0; border: 1px solid rgba(0,243,255,0.2);
+    border-radius: 12px; pointer-events: none; z-index: 10;
 }
-/* HUD Borders */
-.map-wrapper::before { content:''; position:absolute; top:20px; left:20px; right:20px; bottom:20px; border:1px solid rgba(0,240,255,0.1); pointer-events:none; z-index:10; }
-.map-wrapper::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; border:1px solid rgba(0,240,255,0.3); pointer-events:none; }
+/* Scanning Animation Border */
+.map-border-anim {
+    position: absolute; inset: 0; border-radius: 12px; pointer-events: none; z-index: 11;
+    background: linear-gradient(90deg, transparent, rgba(0,243,255,0.4), transparent);
+    background-size: 200% 100%;
+    animation: scanBorder 4s linear infinite;
+}
+@keyframes scanBorder { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
 
-.iframe-box { width: 100%; height: 100%; opacity: 0.9; transition: opacity 1s; }
-.iframe-box iframe { width: 100%; height: 100%; border: none; display: block; }
-
-/* Monitor Scanlines */
-.scanlines {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.15) 50%,
-        rgba(0,0,0,0.15)
-    );
-    background-size: 100% 4px;
-    pointer-events: none; /* Allows clicking through scanlines */
-    z-index: 5;
+.iframe-layer { width: 100%; height: 100%; border: none; }
+.scan-overlay {
+    position: absolute; inset: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%; pointer-events: none; z-index: 5;
 }
 
-/* NASA Logo Hider (Integrated into HUD) */
-.logo-hider {
-    position: absolute; bottom: 0; right: 0; width: 160px; height: 60px;
-    background: #000; /* Matches iframe background */
-    border-top-left-radius: 10px;
-    z-index: 6;
-    pointer-events: none; /* Allows clicking through hider */
-    box-shadow: -5px -5px 15px rgba(0,0,0,0.9);
+/* NASA Hider */
+.nasa-hider {
+    position: absolute; bottom: 0; right: 0; width: 180px; height: 70px;
+    background: #000; z-index: 6; pointer-events: none;
+    border-top-left-radius: 20px; box-shadow: -5px -5px 20px #000;
 }
 
-/* Search Bar (Tech Style) */
-.search-container {
-    position: relative; max-width: 600px; margin: 0 auto 3rem;
-    background: rgba(255,255,255,0.03); border-radius: 50px;
-    padding: 5px; border: 1px solid rgba(255,255,255,0.1);
-    display: flex; align-items: center;
+/* --- 7. COMPONENTS --- */
+.btn-tech {
+    background: rgba(0,243,255,0.1); border: 1px solid var(--primary); color: var(--primary);
+    padding: 1rem 3rem; font-family: var(--font-head); font-weight: 700; text-transform: uppercase;
+    cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; display: inline-block;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
-.search-input {
-    width: 100%; background: transparent; border: none;
-    padding: 1rem 2rem; color: white; font-family: var(--font-display);
-    font-size: 1.1rem; outline: none; letter-spacing: 0.05em;
+.btn-tech:hover { background: var(--primary); color: #000; box-shadow: 0 0 30px var(--primary); }
+
+/* Search Bar */
+.search-box {
+    position: relative; max-width: 600px; margin: 0 auto 4rem;
+    background: rgba(255,255,255,0.03); border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);
+}
+.search-box input {
+    width: 100%; background: transparent; border: none; padding: 1.2rem;
+    color: white; font-family: var(--font-tech); font-size: 1.1rem; letter-spacing: 1px;
 }
 
-/* Cards & Modal */
-.planet-card {
-    background: var(--bg-panel); border: 1px solid transparent;
-    border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer;
-    transition: 0.3s; backdrop-filter: blur(10px);
+/* Cards */
+.card {
+    background: var(--bg-glass); border: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem; border-radius: 8px; transition: 0.4s; position: relative; overflow: hidden; cursor: pointer;
 }
-.planet-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-.planet-img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1.5rem; border: 2px solid var(--primary); }
+.card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,243,255,0.1); }
+.card-img { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 1.5rem; border: 2px solid rgba(255,255,255,0.1); }
 
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-.modal.active { display: flex; animation: fadeIn 0.3s; }
-.modal-content { background: #0f121a; width: 90%; max-width: 700px; border: 1px solid var(--primary); border-radius: 12px; padding: 0; overflow: hidden; box-shadow: 0 0 50px rgba(0,240,255,0.2); }
-.modal-header { background: rgba(0,240,255,0.1); padding: 1.5rem; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.modal-body { padding: 2rem; display: flex; gap: 20px; align-items: start; }
+/* Modal */
+.modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+    z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px;
+}
+.modal.active { display: flex; animation: popIn 0.3s ease; }
+.modal-content {
+    background: #0a0e17; width: 100%; max-width: 700px; border: 1px solid var(--primary);
+    border-radius: 12px; overflow: hidden; box-shadow: 0 0 60px rgba(0,243,255,0.2);
+}
+.modal-header { background: rgba(0,243,255,0.05); padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; }
+.modal-body { padding: 2rem; display: flex; gap: 20px; align-items: center; }
+@keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-/* Contact Form */
-.contact-form { max-width: 600px; margin: 0 auto; background: var(--bg-panel); padding: 3rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
-.input-group { margin-bottom: 1.5rem; }
-.input-group label { display: block; margin-bottom: 0.5rem; color: var(--primary); font-family: var(--font-display); }
-.form-field { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 1rem; color: white; border-radius: 4px; font-family: var(--font-body); }
-
-/* Responsive */
+/* Mobile */
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    .map-wrapper { height: 60vh; }
-    .nav-links { display: none; } /* Add Hamburger if needed */
+    nav { width: 95%; padding: 1rem; }
+    .nav-links { display: none; } /* Add simple toggle if needed later */
+    .modal-body { flex-direction: column; text-align: center; }
 }
